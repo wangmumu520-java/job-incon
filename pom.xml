@@ -9,25 +9,129 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-<!--继承springboot父项目-->
+<!--继承springboot父版本-->
   <parent>
     <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
     <version>2.2.5.RELEASE</version>
   </parent>
-<!-- 维护依赖版本-->
+<!-- 自定义多个属性-->
   <properties>
     <java.version>1.8</java.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-
+    <!--springCloud、SpringCloud Alibaba -->
+    <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+    <spring-cloud.alibaba.version>2.2.1.RELEASE</spring-cloud.alibaba.version>
+    <!--mysql、mybatis、druid -->
+    <mysql.version>8.0.16</mysql.version>
+    <mybatsi.version>2.1.3</mybatsi.version>
+    <druid.version>1.2.1</druid.version>
+    <!--lombok-->
+    <lombok.version>1.18.12</lombok.version>
+    <!--alibaba fastjson-->
+    <fastjson.version>1.2.74</fastjson.version>
+    <!--aliyun通信-->
+    <aliyun.java.sdk.core.version>4.5.3</aliyun.java.sdk.core.version>
+    <aliyun.sdk.oss.version>3.10.2</aliyun.sdk.oss.version>
+    <!--commons lang、commons fileupload-->
+    <commons.fileupload.version>1.4</commons.fileupload.version>
+    <commons.lang.version>2.6</commons.lang.version>
+    <!--redis、es、amqp-->
+    <redis.version>2.2.5.RELEASE</redis.version>
+    <spring.boot.stater.data.elasticsearch>2.2.5.RELEASE</spring.boot.stater.data.elasticsearch>
+    <spring-boot-starter-amqp.version>2.2.5.RELEASE</spring-boot-starter-amqp.version>
   </properties>
 
-  <dependencies>
+  <!--维护依赖版本-->
+  <dependencyManagement>
+    <dependencies>
+      <!--引入spring cloud-->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!--引入spring cloud Alibaba-->
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>${spring-cloud.alibaba.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!--引入mybatis、mysql、druid-->
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatsi.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+      <!--引入lombok-->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+      <!--引入commons lang/fileupload-->
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>${commons.fileupload.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons.lang.version}</version>
+      </dependency>
+      <!--引入组件redis、rabbitmq/amqp、elasticsearch-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+        <version>${redis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-amqp</artifactId>
+        <version>${spring-boot-starter-amqp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        <version>${spring.boot.stater.data.elasticsearch}</version>
+      </dependency>
+      <!--引入阿里云存储、阿里云通信-->
+      <dependency>
+        <groupId>com.aliyun</groupId>
+        <artifactId>aliyun-java-sdk-core</artifactId>
+        <version>${aliyun.java.sdk.core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.aliyun.oss</groupId>
+        <artifactId>aliyun-sdk-oss</artifactId>
+        <version>${aliyun.sdk.oss.version}</version>
+      </dependency>
+      <!--引入alibaba fastjson-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 
-
-  </dependencies>
 
   <build>
 
