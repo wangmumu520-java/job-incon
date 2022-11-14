@@ -39,7 +39,7 @@
     <commons.lang.version>2.6</commons.lang.version>
     <!--redis、es、amqp-->
     <redis.version>2.2.5.RELEASE</redis.version>
-    <spring.boot.stater.data.elasticsearch>2.2.5.RELEASE</spring.boot.stater.data.elasticsearch>
+<!--    <spring.boot.stater.data.elasticsearch>2.2.5.RELEASE</spring.boot.stater.data.elasticsearch>-->
     <spring-boot-starter-amqp.version>2.2.5.RELEASE</spring-boot-starter-amqp.version>
   </properties>
 
@@ -106,11 +106,11 @@
         <artifactId>spring-boot-starter-amqp</artifactId>
         <version>${spring-boot-starter-amqp.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        <version>${spring.boot.stater.data.elasticsearch}</version>
-      </dependency>
+<!--      <dependency>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-data-elasticsearch</artifactId>-->
+<!--        <version>${spring.boot.stater.data.elasticsearch}</version>-->
+<!--      </dependency>-->
       <!--引入阿里云存储、阿里云通信-->
       <dependency>
         <groupId>com.aliyun</groupId>
