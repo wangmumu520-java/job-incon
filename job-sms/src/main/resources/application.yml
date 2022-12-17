@@ -1,0 +1,22 @@
+server:
+  port: 9993
+spring:
+  application:
+    name: JOB-SMS
+#    服务注册地址
+  cloud:
+    nacos:
+      server-addr: 192.168.207.129:8848
+#     redis
+  redis:
+    host: 192.18.207.129
+    port: 7000
+    database: 0
+#    sms配置
+sms:
+  accesskeyId: LTAI5tPkfm6pXt2ggX1sM5Jm
+  secret: AroPRMV9CM3wL4raVToqKTMgM2NzZr
+#  signName: 乐购商城
+  signName: job互联
+  templateCode: SMS_100840002
+  regionId: cn-hangzhou
