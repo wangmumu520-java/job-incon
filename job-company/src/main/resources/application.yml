@@ -35,3 +35,10 @@ feign:
       default:
         connectTimeout: 100000
         readTimeout: 100000
+# rabbitmq
+  rabbitmq:
+    host: 192.18.207.129
+    port: 5672
+    username: root
+    password: 111111
+    virtual-host: /
