@@ -15,10 +15,10 @@ spring:
     nacos:
       server-addr: 192.168.207.129:8848
 #    配置mybatis
+#mybatis:
+#  mapper-locations: classpath:com/wly/mapper/*.xml
+#  type-aliases-package: com.wly.entity
 #    日志
 logging:
   level:
     com.wly.dao: debug
-#mybatis:
-#  mapper-locations: classpath:com/wly/mapper/*.xml
-#  type-aliases-package: com.wly.entity
