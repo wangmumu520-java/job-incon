@@ -12,8 +12,8 @@
     <module>job-gateway</module>
     <module>job-sms</module>
     <module>job-company</module>
-    <module>job-category</module>
     <module>job-common</module>
+    <module>job-categories</module>
   </modules>
   <packaging>pom</packaging>
 
