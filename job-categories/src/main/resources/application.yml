@@ -2,7 +2,7 @@ server:
   port: 9991
 spring:
   application:
-    name: JOB_CATEGORY
+    name: JOB-CATEGORY
 #    数据库
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
