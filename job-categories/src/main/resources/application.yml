@@ -22,3 +22,8 @@ spring:
 logging:
   level:
     com.wly.dao: debug
+# Redis
+  redis:
+    host: 192.18.207.129
+    port: 7000
+    database: 0
