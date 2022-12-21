@@ -74,6 +74,16 @@ public class Student implements Serializable {
      */
     @JsonProperty("h_education")
     private String hEducation;
+    /**
+     *  信箱状态
+     */
+    @JsonProperty("box_status")
+    private String boxStatus;
+    /**
+     *  信箱通知
+     */
+    @JsonProperty("notice")
+    private String notice;
 
 
     public Integer getId() {
@@ -188,5 +198,20 @@ public class Student implements Serializable {
         this.hEducation = hEducation;
     }
 
+    public String getBoxStatus() {
+        return boxStatus;
+    }
+
+    public void setBoxStatus(String boxStatus) {
+        this.boxStatus = boxStatus;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
+    }
 }
 
