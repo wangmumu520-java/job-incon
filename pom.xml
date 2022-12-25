@@ -14,7 +14,7 @@
     <module>job-company</module>
     <module>job-common</module>
     <module>job-categories</module>
-      <module>job-schedule</module>
+    <module>job-schedule</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -33,8 +33,8 @@
     <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
     <spring-cloud.alibaba.version>2.2.1.RELEASE</spring-cloud.alibaba.version>
     <!--mysql、mybatis、druid -->
-    <mysql.version>8.0.16</mysql.version>
-    <mybatsi.version>2.1.3</mybatsi.version>
+    <mysql.version>5.1.49</mysql.version>
+    <mybatis.version>2.1.4</mybatis.version>
     <druid.version>1.2.1</druid.version>
     <!--lombok-->
     <lombok.version>1.18.12</lombok.version>
@@ -75,7 +75,7 @@
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter</artifactId>
-        <version>${mybatsi.version}</version>
+        <version>${mybatis.version}</version>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>

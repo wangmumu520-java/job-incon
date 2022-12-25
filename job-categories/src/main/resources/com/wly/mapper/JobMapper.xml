@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wly.dao.JobDao">
+
+    <resultMap type="com.wly.entity.Job" id="JobMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="cid" column="cid" jdbcType="INTEGER"/>
+        <result property="sid" column="sid" jdbcType="INTEGER"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+        <result property="allNumber" column="all_number" jdbcType="INTEGER"/>
+        <result property="category" column="category" jdbcType="VARCHAR"/>
+        <result property="nowNumber" column="now_number" jdbcType="INTEGER"/>
+        <result property="salary" column="salary" jdbcType="INTEGER"/>
+        <result property="requirement" column="requirement" jdbcType="VARCHAR"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="JobMap">
+        select
+          id, cid, sid, position, all_number, category, now_number, salary, requirement, date
+        from job
+        where id = #{id}
+    </select>
+
+    <!--根据职位名称查询数据-->
+    <select id="queryByName" resultMap="JobMap">
+        select
+          id, cid, sid, position, all_number, category, now_number, salary, requirement, date
+        from job
+        where position like concat('%',#{position},'%') limit #{strIndex}, #{row}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="JobMap">
+        select
+          id, cid, sid, position, all_number, category, now_number, salary, requirement, date
+        from job
+        limit #{strIndex}, #{row}
+    </select>
+
+    <!--根据职位名称统计行数-->
+    <select id="findCountByPosition" resultType="java.lang.Long">
+        select count(id)
+        from job
+        where position like concat('%',#{position},'%')
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(id)
+        from job
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into job(cid, sid, position, all_number, category, now_number, salary, requirement, date)
+        values (#{cid}, #{sid}, #{position}, #{allNumber}, #{category}, #{nowNumber}, #{salary}, #{requirement}, #{date})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into job(cid, sid, position, all_number, category, now_number, salary, requirement, date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.cid}, #{entity.sid}, #{entity.position}, #{entity.allNumber}, #{entity.category}, #{entity.nowNumber}, #{entity.salary}, #{entity.requirement}, #{entity.date})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into job(cid, sid, position, all_number, category, now_number, salary, requirement, date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.cid}, #{entity.sid}, #{entity.position}, #{entity.allNumber}, #{entity.category}, #{entity.nowNumber}, #{entity.salary}, #{entity.requirement}, #{entity.date})
+        </foreach>
+        on duplicate key update
+        cid = values(cid),
+        sid = values(sid),
+        position = values(position),
+        all_number = values(all_number),
+        category = values(category),
+        now_number = values(now_number),
+        salary = values(salary),
+        requirement = values(requirement),
+        date = values(date)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update job
+        <set>
+            <if test="cid != null">
+                cid = #{cid},
+            </if>
+            <if test="sid != null">
+                sid = #{sid},
+            </if>
+            <if test="position != null and position != ''">
+                position = #{position},
+            </if>
+            <if test="allNumber != null">
+                all_number = #{allNumber},
+            </if>
+            <if test="category != null and category != ''">
+                category = #{category},
+            </if>
+            <if test="nowNumber != null">
+                now_number = #{nowNumber},
+            </if>
+            <if test="salary != null">
+                salary = #{salary},
+            </if>
+            <if test="requirement != null and requirement != ''">
+                requirement = #{requirement},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from job where id = #{id}
+    </delete>
+
+</mapper>
+

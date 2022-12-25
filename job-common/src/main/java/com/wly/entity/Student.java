@@ -48,7 +48,7 @@ public class Student implements Serializable {
     /**
      * 粉丝数
      */
-    @JsonProperty("")
+    @JsonProperty("fans_number")
     private Integer fansNumber;
     /**
      * 手机号
@@ -82,8 +82,12 @@ public class Student implements Serializable {
     /**
      *  信箱通知
      */
-    @JsonProperty("notice")
     private String notice;
+    /**
+     *  每天剩余投递次数
+     */
+    @JsonProperty("deliver_number")
+    private String deliverNumber;
 
 
     public Integer getId() {
@@ -212,6 +216,14 @@ public class Student implements Serializable {
 
     public void setNotice(String notice) {
         this.notice = notice;
+    }
+
+    public String getDeliverNumber() {
+        return deliverNumber;
+    }
+
+    public void setDeliverNumber(String deliverNumber) {
+        this.deliverNumber = deliverNumber;
     }
 }
 

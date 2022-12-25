@@ -137,5 +137,20 @@ public class Job implements Serializable {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "Job{" +
+                "id=" + id +
+                ", cid=" + cid +
+                ", sid=" + sid +
+                ", position='" + position + '\'' +
+                ", allNumber=" + allNumber +
+                ", category='" + category + '\'' +
+                ", nowNumber=" + nowNumber +
+                ", salary=" + salary +
+                ", requirement='" + requirement + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }
 
