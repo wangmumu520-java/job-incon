@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wly.dao.StudentDao">
+
+    <resultMap type="com.wly.entity.Student" id="StudentMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="nowAddress" column="now_address" jdbcType="VARCHAR"/>
+        <result property="major" column="major" jdbcType="VARCHAR"/>
+        <result property="college" column="college" jdbcType="VARCHAR"/>
+        <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+        <result property="fansNumber" column="fans_number" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="identityCard" column="identity_card" jdbcType="VARCHAR"/>
+        <result property="expectSalary" column="expect_salary" jdbcType="VARCHAR"/>
+        <result property="expectPosition" column="expect_position" jdbcType="VARCHAR"/>
+        <result property="hEducation" column="h_education" jdbcType="VARCHAR"/>
+        <result property="boxStatus" column="box_status" jdbcType="INTEGER"/>
+        <result property="notice" column="notice" jdbcType="VARCHAR"/>
+        <result property="deliverNumber" column="deliver_number" jdbcType="INTEGER"/>
+        <result property="publish" column="publish" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="StudentMap">
+        select
+          id, name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish
+        from student
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="StudentMap">
+        select
+          id, name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish
+        from student
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="nowAddress != null and nowAddress != ''">
+                and now_address = #{nowAddress}
+            </if>
+            <if test="major != null and major != ''">
+                and major = #{major}
+            </if>
+            <if test="college != null and college != ''">
+                and college = #{college}
+            </if>
+            <if test="introduction != null and introduction != ''">
+                and introduction = #{introduction}
+            </if>
+            <if test="fansNumber != null">
+                and fans_number = #{fansNumber}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="identityCard != null and identityCard != ''">
+                and identity_card = #{identityCard}
+            </if>
+            <if test="expectSalary != null and expectSalary != ''">
+                and expect_salary = #{expectSalary}
+            </if>
+            <if test="expectPosition != null and expectPosition != ''">
+                and expect_position = #{expectPosition}
+            </if>
+            <if test="hEducation != null and hEducation != ''">
+                and h_education = #{hEducation}
+            </if>
+            <if test="boxStatus != null">
+                and box_status = #{boxStatus}
+            </if>
+            <if test="notice != null and notice != ''">
+                and notice = #{notice}
+            </if>
+            <if test="deliverNumber != null">
+                and deliver_number = #{deliverNumber}
+            </if>
+            <if test="publish != null">
+                and publish = #{publish}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from student
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="nowAddress != null and nowAddress != ''">
+                and now_address = #{nowAddress}
+            </if>
+            <if test="major != null and major != ''">
+                and major = #{major}
+            </if>
+            <if test="college != null and college != ''">
+                and college = #{college}
+            </if>
+            <if test="introduction != null and introduction != ''">
+                and introduction = #{introduction}
+            </if>
+            <if test="fansNumber != null">
+                and fans_number = #{fansNumber}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="identityCard != null and identityCard != ''">
+                and identity_card = #{identityCard}
+            </if>
+            <if test="expectSalary != null and expectSalary != ''">
+                and expect_salary = #{expectSalary}
+            </if>
+            <if test="expectPosition != null and expectPosition != ''">
+                and expect_position = #{expectPosition}
+            </if>
+            <if test="hEducation != null and hEducation != ''">
+                and h_education = #{hEducation}
+            </if>
+            <if test="boxStatus != null">
+                and box_status = #{boxStatus}
+            </if>
+            <if test="notice != null and notice != ''">
+                and notice = #{notice}
+            </if>
+            <if test="deliverNumber != null">
+                and deliver_number = #{deliverNumber}
+            </if>
+            <if test="publish != null">
+                and publish = #{publish}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish)
+        values (#{name}, #{age}, #{sex}, #{nowAddress}, #{major}, #{college}, #{introduction}, #{fansNumber}, #{phone}, #{identityCard}, #{expectSalary}, #{expectPosition}, #{hEducation}, #{boxStatus}, #{notice}, #{deliverNumber}, #{publish})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}, #{entity.age}, #{entity.sex}, #{entity.nowAddress}, #{entity.major}, #{entity.college}, #{entity.introduction}, #{entity.fansNumber}, #{entity.phone}, #{entity.identityCard}, #{entity.expectSalary}, #{entity.expectPosition}, #{entity.hEducation}, #{entity.boxStatus}, #{entity.notice}, #{entity.deliverNumber}, #{entity.publish})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.age}, #{entity.sex}, #{entity.nowAddress}, #{entity.major}, #{entity.college}, #{entity.introduction}, #{entity.fansNumber}, #{entity.phone}, #{entity.identityCard}, #{entity.expectSalary}, #{entity.expectPosition}, #{entity.hEducation}, #{entity.boxStatus}, #{entity.notice}, #{entity.deliverNumber}, #{entity.publish})
+        </foreach>
+        on duplicate key update
+        name = values(name),
+        age = values(age),
+        sex = values(sex),
+        now_address = values(now_address),
+        major = values(major),
+        college = values(college),
+        introduction = values(introduction),
+        fans_number = values(fans_number),
+        phone = values(phone),
+        identity_card = values(identity_card),
+        expect_salary = values(expect_salary),
+        expect_position = values(expect_position),
+        h_education = values(h_education),
+        box_status = values(box_status),
+        notice = values(notice),
+        deliver_number = values(deliver_number),
+        publish = values(publish)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update student
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="nowAddress != null and nowAddress != ''">
+                now_address = #{nowAddress},
+            </if>
+            <if test="major != null and major != ''">
+                major = #{major},
+            </if>
+            <if test="college != null and college != ''">
+                college = #{college},
+            </if>
+            <if test="introduction != null and introduction != ''">
+                introduction = #{introduction},
+            </if>
+            <if test="fansNumber != null">
+                fans_number = #{fansNumber},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="identityCard != null and identityCard != ''">
+                identity_card = #{identityCard},
+            </if>
+            <if test="expectSalary != null and expectSalary != ''">
+                expect_salary = #{expectSalary},
+            </if>
+            <if test="expectPosition != null and expectPosition != ''">
+                expect_position = #{expectPosition},
+            </if>
+            <if test="hEducation != null and hEducation != ''">
+                h_education = #{hEducation},
+            </if>
+            <if test="boxStatus != null">
+                box_status = #{boxStatus},
+            </if>
+            <if test="notice != null and notice != ''">
+                notice = #{notice},
+            </if>
+            <if test="deliverNumber != null">
+                deliver_number = #{deliverNumber},
+            </if>
+            <if test="publish != null">
+                publish = #{publish},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from student where id = #{id}
+    </delete>
+
+</mapper>
+
