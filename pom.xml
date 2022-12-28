@@ -48,8 +48,11 @@
     <commons.lang.version>2.6</commons.lang.version>
     <!--redis、es、amqp-->
     <redis.version>2.2.5.RELEASE</redis.version>
-<!--    <spring.boot.stater.data.elasticsearch>2.2.5.RELEASE</spring.boot.stater.data.elasticsearch>-->
+    <!--<spring.boot.stater.data.elasticsearch>2.2.5.RELEASE</spring.boot.stater.data.elasticsearch>-->
     <spring-boot-starter-amqp.version>2.2.5.RELEASE</spring-boot-starter-amqp.version>
+    <!--swagger-->
+    <springfox-swagger-ui>2.9.2</springfox-swagger-ui>
+    <springfox-swagger2>2.9.2</springfox-swagger2>
   </properties>
 
   <!--维护依赖版本-->
@@ -136,6 +139,17 @@
         <groupId>com.alibaba</groupId>
         <artifactId>fastjson</artifactId>
         <version>${fastjson.version}</version>
+      </dependency>
+      <!--引入swagger-->
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${springfox-swagger-ui}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${springfox-swagger2}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
