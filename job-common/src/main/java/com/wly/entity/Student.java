@@ -27,7 +27,7 @@ public class Student implements Serializable {
     /**
      * 性别
      */
-    private Integer sex;
+    private String sex;
     /**
      * 现住址
      */
@@ -63,7 +63,7 @@ public class Student implements Serializable {
      * 期望薪资
      */
     @JsonProperty("expect_salary")
-    private Integer expectSalary;
+    private String expectSalary;
     /**
      * 期望职位
      */
@@ -78,7 +78,7 @@ public class Student implements Serializable {
      *  信箱状态
      */
     @JsonProperty("box_status")
-    private String boxStatus;
+    private Integer boxStatus;
     /**
      *  信箱通知
      */
@@ -87,8 +87,11 @@ public class Student implements Serializable {
      *  每天剩余投递次数
      */
     @JsonProperty("deliver_number")
-    private String deliverNumber;
-
+    private Integer deliverNumber;
+    /**
+     *  每天剩余推荐工作次数
+     */
+    private Integer publish;
 
     public Integer getId() {
         return id;
@@ -114,11 +117,11 @@ public class Student implements Serializable {
         this.age = age;
     }
 
-    public Integer getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Integer sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -178,11 +181,11 @@ public class Student implements Serializable {
         this.identityCard = identityCard;
     }
 
-    public Integer getExpectSalary() {
+    public String getExpectSalary() {
         return expectSalary;
     }
 
-    public void setExpectSalary(Integer expectSalary) {
+    public void setExpectSalary(String expectSalary) {
         this.expectSalary = expectSalary;
     }
 
@@ -194,19 +197,19 @@ public class Student implements Serializable {
         this.expectPosition = expectPosition;
     }
 
-    public String getHEducation() {
+    public String gethEducation() {
         return hEducation;
     }
 
-    public void setHEducation(String hEducation) {
+    public void sethEducation(String hEducation) {
         this.hEducation = hEducation;
     }
 
-    public String getBoxStatus() {
+    public Integer getBoxStatus() {
         return boxStatus;
     }
 
-    public void setBoxStatus(String boxStatus) {
+    public void setBoxStatus(Integer boxStatus) {
         this.boxStatus = boxStatus;
     }
 
@@ -218,12 +221,44 @@ public class Student implements Serializable {
         this.notice = notice;
     }
 
-    public String getDeliverNumber() {
+    public Integer getDeliverNumber() {
         return deliverNumber;
     }
 
-    public void setDeliverNumber(String deliverNumber) {
+    public void setDeliverNumber(Integer deliverNumber) {
         this.deliverNumber = deliverNumber;
+    }
+
+    public Integer getPublish() {
+        return publish;
+    }
+
+    public void setPublish(Integer publish) {
+        this.publish = publish;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", nowAddress='" + nowAddress + '\'' +
+                ", major='" + major + '\'' +
+                ", college='" + college + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", fansNumber=" + fansNumber +
+                ", phone='" + phone + '\'' +
+                ", identityCard='" + identityCard + '\'' +
+                ", expectSalary='" + expectSalary + '\'' +
+                ", expectPosition='" + expectPosition + '\'' +
+                ", hEducation='" + hEducation + '\'' +
+                ", boxStatus=" + boxStatus +
+                ", notice='" + notice + '\'' +
+                ", deliverNumber=" + deliverNumber +
+                ", publish=" + publish +
+                '}';
     }
 }
 

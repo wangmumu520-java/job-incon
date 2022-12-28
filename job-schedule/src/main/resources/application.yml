@@ -24,9 +24,9 @@ logging:
   level:
     com.wly.dao: debug
 #    配置mybatis
-#mybatis:
-#  mapper-locations: classpath:com/wly/mapper/*.xml
-#  type-aliases-package: com.wly.entity
+mybatis:
+  mapper-locations: classpath:com/wly/mapper/*.xml
+
 
 #设置openfeign调用超时
 feign:

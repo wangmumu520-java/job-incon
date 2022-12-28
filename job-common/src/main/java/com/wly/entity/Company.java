@@ -33,11 +33,11 @@ public class Company implements Serializable {
     /**
      * 规模
      */
-    private Integer scope;
+    private String scope;
     /**
      * 融资状态
      */
-    private Integer status;
+    private String status;
     /**
      *  地址
      */
@@ -54,9 +54,15 @@ public class Company implements Serializable {
     /**
      * 注册资金
      */
-    @JsonProperty("r_fund")
-    private String rFund;
-
+    private String fund;
+    /**
+     *  企业类别
+     */
+    private String category;
+    /**
+     * 每天可发布职位数
+     */
+    private Integer publish;
 
     public Integer getId() {
         return id;
@@ -90,19 +96,19 @@ public class Company implements Serializable {
         this.introduction = introduction;
     }
 
-    public Integer getScope() {
+    public String getScope() {
         return scope;
     }
 
-    public void setScope(Integer scope) {
+    public void setScope(String scope) {
         this.scope = scope;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -130,13 +136,46 @@ public class Company implements Serializable {
         this.representative = representative;
     }
 
-    public String getRFund() {
-        return rFund;
+    public String getFund() {
+        return fund;
     }
 
-    public void setRFund(String rFund) {
-        this.rFund = rFund;
+    public void setFund(String fund) {
+        this.fund = fund;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Integer getPublish() {
+        return publish;
+    }
+
+    public void setPublish(Integer publish) {
+        this.publish = publish;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", scope='" + scope + '\'' +
+                ", status='" + status + '\'' +
+                ", address='" + address + '\'' +
+                ", createDate=" + createDate +
+                ", representative='" + representative + '\'' +
+                ", fund='" + fund + '\'' +
+                ", category='" + category + '\'' +
+                ", publish=" + publish +
+                '}';
+    }
 }
 
