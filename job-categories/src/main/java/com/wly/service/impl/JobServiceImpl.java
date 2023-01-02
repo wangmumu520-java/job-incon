@@ -1,6 +1,6 @@
 package com.wly.service.impl;
 
-import com.wly.dao.JobDao;
+import com.wly.mapper.JobDao;
 import com.wly.entity.Job;
 import com.wly.service.JobService;
 import org.springframework.stereotype.Service;

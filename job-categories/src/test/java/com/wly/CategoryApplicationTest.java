@@ -1,9 +1,7 @@
 package com.wly;
 
-import com.wly.dao.JobDao;
 import com.wly.entity.Job;
 import com.wly.service.JobService;
-import com.wly.service.impl.JobServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
