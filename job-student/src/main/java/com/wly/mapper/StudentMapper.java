@@ -1,5 +1,6 @@
 package com.wly.mapper;
 
+import com.wly.entity.Company;
 import com.wly.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -9,11 +10,11 @@ import java.util.List;
 /**
  * (Student)表数据库访问层
  *
- * @author makejava
+ * @author 王林园
  * @since 2022-12-26 23:03:32
  */
 @Mapper
-public interface StudentDao {
+public interface StudentMapper {
 
     /**
      * 通过ID查询单条数据
@@ -38,7 +39,7 @@ public interface StudentDao {
      * @param student 查询条件
      * @return 总行数
      */
-    long count(Student student);
+    long count();
 
     /**
      * 新增数据
@@ -81,5 +82,28 @@ public interface StudentDao {
      */
     int deleteById(Integer id);
 
+    //
+    /**
+     * 通过职位名称查询数据
+     *
+     * @return 实例对象
+     */
+    List<Student> queryByName(@Param("strIndex") int strIndex, @Param("row") int row, @Param("name") String studentName);
+
+    /**
+     * 查询指定行数据
+     *
+     * @param strIndex 查询起始位置
+     * @param row  查询条数
+     * @return 对象列表
+     */
+    List<Student> queryAllStudentByLimit(@Param("strIndex") int strIndex, @Param("row") int row);
+
+    /**
+     * 根据职位名称统计行数
+     *
+     * @return 总行数
+     */
+    long findCountByStudentName(@Param("name") String studentName);
 }
 

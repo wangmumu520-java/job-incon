@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wly.mapper.StudentDao">
+<mapper namespace="com.wly.mapper.StudentMapper">
 
     <resultMap type="com.wly.entity.Student" id="StudentMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
@@ -21,20 +21,44 @@
         <result property="notice" column="notice" jdbcType="VARCHAR"/>
         <result property="deliverNumber" column="deliver_number" jdbcType="INTEGER"/>
         <result property="publish" column="publish" jdbcType="INTEGER"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="StudentMap">
         select
-          id, name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish
+          id, name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish, password
         from student
         where id = #{id}
+    </select>
+
+<!--    -->
+    <!--查询所有学生-->
+    <select id="queryAllStudentByLimit" resultMap="StudentMap">
+        select
+        id, name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish, password
+        from student
+        limit #{strIndex}, #{row}
+    </select>
+    <!--根据学生姓名查询-->
+    <select id="queryByName" resultMap="StudentMap">
+        select
+          id, name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish, password
+        from student
+        where name like concat('%',#{name},'%') limit #{strIndex}, #{row}
+    </select>
+
+    <!--统计总行数-->
+    <select id="findCountByStudentName" resultType="java.lang.Long">
+        select count(id)
+        from student
+        where name like concat('%',#{name},'%')
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="StudentMap">
         select
-          id, name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish
+          id, name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish, password
         from student
         <where>
             <if test="id != null">
@@ -90,6 +114,9 @@
             </if>
             <if test="publish != null">
                 and publish = #{publish}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -97,85 +124,29 @@
 
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
-        select count(1)
+        select count(id)
         from student
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="name != null and name != ''">
-                and name = #{name}
-            </if>
-            <if test="age != null">
-                and age = #{age}
-            </if>
-            <if test="sex != null and sex != ''">
-                and sex = #{sex}
-            </if>
-            <if test="nowAddress != null and nowAddress != ''">
-                and now_address = #{nowAddress}
-            </if>
-            <if test="major != null and major != ''">
-                and major = #{major}
-            </if>
-            <if test="college != null and college != ''">
-                and college = #{college}
-            </if>
-            <if test="introduction != null and introduction != ''">
-                and introduction = #{introduction}
-            </if>
-            <if test="fansNumber != null">
-                and fans_number = #{fansNumber}
-            </if>
-            <if test="phone != null and phone != ''">
-                and phone = #{phone}
-            </if>
-            <if test="identityCard != null and identityCard != ''">
-                and identity_card = #{identityCard}
-            </if>
-            <if test="expectSalary != null and expectSalary != ''">
-                and expect_salary = #{expectSalary}
-            </if>
-            <if test="expectPosition != null and expectPosition != ''">
-                and expect_position = #{expectPosition}
-            </if>
-            <if test="hEducation != null and hEducation != ''">
-                and h_education = #{hEducation}
-            </if>
-            <if test="boxStatus != null">
-                and box_status = #{boxStatus}
-            </if>
-            <if test="notice != null and notice != ''">
-                and notice = #{notice}
-            </if>
-            <if test="deliverNumber != null">
-                and deliver_number = #{deliverNumber}
-            </if>
-            <if test="publish != null">
-                and publish = #{publish}
-            </if>
-        </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish)
-        values (#{name}, #{age}, #{sex}, #{nowAddress}, #{major}, #{college}, #{introduction}, #{fansNumber}, #{phone}, #{identityCard}, #{expectSalary}, #{expectPosition}, #{hEducation}, #{boxStatus}, #{notice}, #{deliverNumber}, #{publish})
+        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish, password)
+        values (#{name}, #{age}, #{sex}, #{nowAddress}, #{major}, #{college}, #{introduction}, #{fansNumber}, #{phone}, #{identityCard}, #{expectSalary}, #{expectPosition}, #{hEducation}, #{boxStatus}, #{notice}, #{deliverNumber}, #{publish}, #{password})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish)
+        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish, password)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.name}, #{entity.age}, #{entity.sex}, #{entity.nowAddress}, #{entity.major}, #{entity.college}, #{entity.introduction}, #{entity.fansNumber}, #{entity.phone}, #{entity.identityCard}, #{entity.expectSalary}, #{entity.expectPosition}, #{entity.hEducation}, #{entity.boxStatus}, #{entity.notice}, #{entity.deliverNumber}, #{entity.publish})
+        (#{entity.name}, #{entity.age}, #{entity.sex}, #{entity.nowAddress}, #{entity.major}, #{entity.college}, #{entity.introduction}, #{entity.fansNumber}, #{entity.phone}, #{entity.identityCard}, #{entity.expectSalary}, #{entity.expectPosition}, #{entity.hEducation}, #{entity.boxStatus}, #{entity.notice}, #{entity.deliverNumber}, #{entity.publish}, #{entity.password})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish)
+        insert into student(name, age, sex, now_address, major, college, introduction, fans_number, phone, identity_card, expect_salary, expect_position, h_education, box_status, notice, deliver_number, publish, password)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.age}, #{entity.sex}, #{entity.nowAddress}, #{entity.major}, #{entity.college}, #{entity.introduction}, #{entity.fansNumber}, #{entity.phone}, #{entity.identityCard}, #{entity.expectSalary}, #{entity.expectPosition}, #{entity.hEducation}, #{entity.boxStatus}, #{entity.notice}, #{entity.deliverNumber}, #{entity.publish})
+            (#{entity.name}, #{entity.age}, #{entity.sex}, #{entity.nowAddress}, #{entity.major}, #{entity.college}, #{entity.introduction}, #{entity.fansNumber}, #{entity.phone}, #{entity.identityCard}, #{entity.expectSalary}, #{entity.expectPosition}, #{entity.hEducation}, #{entity.boxStatus}, #{entity.notice}, #{entity.deliverNumber}, #{entity.publish}, #{entity.password})
         </foreach>
         on duplicate key update
         name = values(name),
@@ -194,7 +165,8 @@
         box_status = values(box_status),
         notice = values(notice),
         deliver_number = values(deliver_number),
-        publish = values(publish)
+        publish = values(publish),
+        password = values(password)
     </insert>
 
     <!--通过主键修改数据-->
@@ -251,6 +223,9 @@
             </if>
             <if test="publish != null">
                 publish = #{publish},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
             </if>
         </set>
         where id = #{id}
