@@ -1,4 +1,4 @@
-package com.wly.dao;
+package com.wly.mapper;
 
 import com.wly.entity.Company;
 import org.apache.ibatis.annotations.Mapper;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * (Company)表数据库访问层
  *
- * @author makejava
+ * @author 王林园
  * @since 2022-12-26 22:47:08
  */
 @Mapper
@@ -35,10 +35,9 @@ public interface CompanyDao {
     /**
      * 统计总行数
      *
-     * @param company 查询条件
      * @return 总行数
      */
-    long count(Company company);
+    long count();
 
     /**
      * 新增数据
@@ -81,5 +80,27 @@ public interface CompanyDao {
      */
     int deleteById(Integer id);
 
+    /**
+     * 通过职位名称查询数据
+     *
+     * @return 实例对象
+     */
+    List<Company> queryByName(@Param("strIndex") int strIndex, @Param("row") int row, @Param("name") String companyName);
+
+    /**
+     * 查询指定行数据
+     *
+     * @param strIndex 查询起始位置
+     * @param row  查询条数
+     * @return 对象列表
+     */
+    List<Company> queryAllCompanyByLimit(@Param("strIndex") int strIndex, @Param("row") int row);
+
+    /**
+     * 根据职位名称统计行数
+     *
+     * @return 总行数
+     */
+    long findCountByCompanyName(@Param("name") String companyName);
 }
 
