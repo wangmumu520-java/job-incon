@@ -22,7 +22,7 @@ spring:
 #    日志
 logging:
   level:
-    com.wly.dao: debug
+    com.wly.mapper: debug
 #    配置mybatis
 mybatis:
   mapper-locations: classpath:com/wly/mapper/*.xml
