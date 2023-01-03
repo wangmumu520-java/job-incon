@@ -1,6 +1,6 @@
-package com.wly.po;
+package com.wly.dto;
 
-public class ResultPO {
+public class ResultDTO {
     //返回执行结果状态
     public Boolean success;
     //返回执行结果消息
