@@ -93,6 +93,19 @@ public class Student implements Serializable {
      */
     private Integer publish;
 
+    /**
+     * 密码
+     */
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -258,6 +271,7 @@ public class Student implements Serializable {
                 ", notice='" + notice + '\'' +
                 ", deliverNumber=" + deliverNumber +
                 ", publish=" + publish +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

@@ -63,6 +63,18 @@ public class Company implements Serializable {
      * 每天可发布职位数
      */
     private Integer publish;
+    /**
+     * 密码
+     */
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;
@@ -175,6 +187,7 @@ public class Company implements Serializable {
                 ", fund='" + fund + '\'' +
                 ", category='" + category + '\'' +
                 ", publish=" + publish +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
