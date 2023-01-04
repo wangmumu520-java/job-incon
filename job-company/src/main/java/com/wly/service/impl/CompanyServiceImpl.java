@@ -1,7 +1,7 @@
 package com.wly.service.impl;
 
 import com.wly.entity.Company;
-import com.wly.dao.CompanyDao;
+import com.wly.mapper.CompanyMapper;
 import com.wly.service.CompanyService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -9,17 +9,20 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (Company)表服务实现类
  *
- * @author makejava
+ * @author 王林园
  * @since 2022-12-26 22:47:08
  */
 @Service("companyService")
 public class CompanyServiceImpl implements CompanyService {
     @Resource
-    private CompanyDao companyDao;
+    private CompanyMapper companyMapper;
 
     /**
      * 通过ID查询单条数据
@@ -29,20 +32,33 @@ public class CompanyServiceImpl implements CompanyService {
      */
     @Override
     public Company queryById(Integer id) {
-        return this.companyDao.queryById(id);
+        return this.companyMapper.queryById(id);
     }
 
     /**
      * 分页查询
      *
-     * @param company 筛选条件
-     * @param pageRequest      分页对象
+     * @param pageNow 当前页码
+     * @param pageRow 当前页行数
      * @return 查询结果
      */
     @Override
-    public Page<Company> queryByPage(Company company, PageRequest pageRequest) {
-        long total = this.companyDao.count(company);
-        return new PageImpl<>(this.companyDao.queryAllByLimit(company, pageRequest), pageRequest, total);
+    public Map<String,Object> queryByPage(int pageNow, int pageRow) {
+        HashMap<String, Object> map = new HashMap<>();
+        long total = this.companyMapper.count();
+        int strIndex = (pageNow -1)*pageRow;
+        int row = pageRow;
+        try {
+            List<Company> companies = this.companyMapper.queryAllCompanyByLimit(strIndex, row);
+            if(companies != null && companies.size() >0){
+                map.put("total",total);
+                map.put("companies",companies);
+                return map;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -53,7 +69,7 @@ public class CompanyServiceImpl implements CompanyService {
      */
     @Override
     public Company insert(Company company) {
-        this.companyDao.insert(company);
+        this.companyMapper.insert(company);
         return company;
     }
 
@@ -65,7 +81,7 @@ public class CompanyServiceImpl implements CompanyService {
      */
     @Override
     public Company update(Company company) {
-        this.companyDao.update(company);
+        this.companyMapper.update(company);
         return this.queryById(company.getId());
     }
 
@@ -77,6 +93,33 @@ public class CompanyServiceImpl implements CompanyService {
      */
     @Override
     public boolean deleteById(Integer id) {
-        return this.companyDao.deleteById(id) > 0;
+        return this.companyMapper.deleteById(id) > 0;
+    }
+
+    /**
+     * 根据name分页查询
+     * @param pageNow 当前页码
+     * @param pageRow 当前页行数
+     * @param name
+     * @return
+     */
+    @Override
+    public Map<String, Object> queryByNamePage(int pageNow, int pageRow, String name) {
+        HashMap<String, Object> map = new HashMap<>();
+        long count = this.companyMapper.findCountByCompanyName(name);
+        int strIndex = (pageNow -1)*pageNow;
+        int row = pageRow;
+        try {
+            List<Company> companies = this.companyMapper.queryByName(strIndex, row, name);
+            if(companies != null && companies.size() >0){
+                map.put("total",count);
+                map.put("companies",companies);
+                return map;
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

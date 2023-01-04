@@ -4,10 +4,13 @@ import com.wly.entity.Company;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * (Company)表服务接口
  *
- * @author makejava
+ * @author 王林园
  * @since 2022-12-26 22:47:08
  */
 public interface CompanyService {
@@ -22,12 +25,11 @@ public interface CompanyService {
 
     /**
      * 分页查询
-     *
-     * @param company 筛选条件
-     * @param pageRequest      分页对象
+     *@param pageNow 起始位置
+     *@param PageRow   每页记录数
      * @return 查询结果
      */
-    Page<Company> queryByPage(Company company, PageRequest pageRequest);
+    Map<String,Object> queryByPage(int pageNow, int PageRow);
 
     /**
      * 新增数据
@@ -53,4 +55,10 @@ public interface CompanyService {
      */
     boolean deleteById(Integer id);
 
+    /**
+     * 条件分页查询
+     *
+     * @return 实例对象
+     */
+    Map<String,Object> queryByNamePage(int pageNow, int pageRow, String name);
 }
