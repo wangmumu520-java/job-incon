@@ -1,33 +1,46 @@
 package com.wly;
 
 import com.wly.entity.Company;
-import com.wly.entity.Job;
-import com.wly.mapper.CompanyDao;
+import com.wly.mapper.CompanyMapper;
+import com.wly.service.CompanyService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.sql.SQLOutput;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
+@Slf4j
 @SpringBootTest(classes = com.wly.CompanyApplication.class)
 @RunWith(SpringRunner.class)
 public class CompanyApplicationTest {
     @Autowired
-    private CompanyDao companyDao;
-
+    private CompanyMapper companyMapper;
+    @Autowired
+    private CompanyService companyService;
     @Test
     public void testCategory() {
-        long count = companyDao.count();
-        System.out.println("企业数量："+count);
-        List<Company> Companies = companyDao.queryAllCompanyByLimit(0, 5);
-        for (Company company : Companies) {
-            System.out.println(company);
+//        long count = companyMapper.count();
+//        System.out.println("企业数量："+count);
+//        List<Company> Companies = companyMapper.queryAllCompanyByLimit(0, 5);
+//        for (Company company : Companies) {
+//            System.out.println(company);
+//        }
+//        Map<String, Object> map = this.companyService.queryByPage(1, 5);
+//        long total = (long) map.get("total");
+//        log.info("总记录数：{}", total);
+
+        Map<String, Object> map = this.companyService.queryByNamePage(1, 5, "海");
+        long total = (long) map.get("total");
+        log.info("总记录数：{}", total);
+        List<Company> companies = (List<Company>) map.get("companies");
+        for (Company company : companies) {
+            log.info("企业对象{}的信息：{}",company.getId(),company);
         }
+
+
 //        Company company = new Company();
 //        company.setName("杭州安恒信息技术股份有限公司");
 //        company.setScope("1000-9999");
