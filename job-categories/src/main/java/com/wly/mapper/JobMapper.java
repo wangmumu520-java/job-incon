@@ -12,7 +12,7 @@ import java.util.List;
  * @since 2022-12-22 17:20:20
  */
 @Mapper
-public interface JobDao {
+public interface JobMapper {
 
     /**
      * 通过ID查询单条数据

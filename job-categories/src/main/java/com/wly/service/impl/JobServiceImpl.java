@@ -1,6 +1,6 @@
 package com.wly.service.impl;
 
-import com.wly.mapper.JobDao;
+import com.wly.mapper.JobMapper;
 import com.wly.entity.Job;
 import com.wly.service.JobService;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.Map;
 @Service("jobService")
 public class JobServiceImpl implements JobService {
     @Resource
-    private JobDao jobDao;
+    private JobMapper jobMapper;
 
     /**
      * 通过ID查询单条数据
@@ -30,7 +30,7 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     public List<Job> queryById(Integer id) {
-        List<Job> jobs = this.jobDao.queryById(id);
+        List<Job> jobs = this.jobMapper.queryById(id);
         if(jobs != null && jobs.size()>0){
             return jobs;
         }
@@ -42,13 +42,13 @@ public class JobServiceImpl implements JobService {
      * @return 查询结果
      */
     @Override
-    public List<Map<String,Object>> queryByPage(int pageNow, int PageRow) {
+    public List<Map<String,Object>> queryByPage(int pageNow, int pageRow) {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
-        long total = this.jobDao.count();
-        int strIndex = (pageNow - 1)*PageRow;
-        int row = PageRow;
-        List<Job> jobs = this.jobDao.queryAllByLimit(strIndex, row);
+        long total = this.jobMapper.count();
+        int strIndex = (pageNow - 1)*pageRow;
+        int row = pageRow;
+        List<Job> jobs = this.jobMapper.queryAllByLimit(strIndex, row);
 
         if(jobs != null && jobs.size()>0){
             map.put("total",total);
@@ -67,7 +67,7 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     public Job insert(Job job) {
-        this.jobDao.insert(job);
+        this.jobMapper.insert(job);
         return job;
     }
 
@@ -79,8 +79,8 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     public Job update(Job job) {
-        this.jobDao.update(job);
-        List<Job> jobs = this.jobDao.queryById(job.getId());
+        this.jobMapper.update(job);
+        List<Job> jobs = this.jobMapper.queryById(job.getId());
         if(jobs != null && jobs.size()>0){
             return job;
         }
@@ -95,17 +95,24 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     public boolean deleteById(Integer id) {
-        return this.jobDao.deleteById(id) > 0;
+        return this.jobMapper.deleteById(id) > 0;
     }
 
+    /**
+     * 根据职位名称分页查询
+     * @param pageNow
+     * @param pageRow
+     * @param position
+     * @return
+     */
     @Override
-    public List<Map<String, Object>> queryByNamePage(int pageNow, int PageRow, String position) {
+    public List<Map<String, Object>> queryByNamePage(int pageNow, int pageRow, String position) {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
-        long total = this.jobDao.findCountByPosition(position);
-        int strIndex = (pageNow - 1)*PageRow;
-        int row = PageRow;
-        List<Job> jobs = this.jobDao.queryByName(strIndex, row, position);
+        long total = this.jobMapper.findCountByPosition(position);
+        int strIndex = (pageNow - 1)*pageRow;
+        int row = pageRow;
+        List<Job> jobs = this.jobMapper.queryByName(strIndex, row, position);
         if(jobs != null && jobs.size()>0){
             map.put("total",total);
             map.put("jobs",jobs);

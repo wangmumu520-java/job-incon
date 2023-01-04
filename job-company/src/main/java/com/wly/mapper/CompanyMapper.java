@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2022-12-26 22:47:08
  */
 @Mapper
-public interface CompanyDao {
+public interface CompanyMapper {
 
     /**
      * 通过ID查询单条数据
