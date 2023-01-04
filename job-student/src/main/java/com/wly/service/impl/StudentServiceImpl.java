@@ -1,25 +1,26 @@
 package com.wly.service.impl;
 
 import com.wly.entity.Student;
-import com.wly.mapper.StudentDao;
+import com.wly.exception.IllegalParamException;
+import com.wly.mapper.StudentMapper;
 import com.wly.service.StudentService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (Student)表服务实现类
  *
- * @author makejava
+ * @author 王林园
  * @since 2022-12-26 23:03:32
  */
 @Service("studentService")
 public class StudentServiceImpl implements StudentService {
     @Resource
-    private StudentDao studentDao;
+    private StudentMapper studentMapper;
 
     /**
      * 通过ID查询单条数据
@@ -29,20 +30,36 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Student queryById(Integer id) {
-        return this.studentDao.queryById(id);
+        return this.studentMapper.queryById(id);
     }
 
     /**
      * 分页查询
      *
-     * @param student 筛选条件
-     * @param pageRequest      分页对象
+     * @param pageNow 当前页码
+     * @param pageRow 当前页行数
      * @return 查询结果
      */
     @Override
-    public Page<Student> queryByPage(Student student, PageRequest pageRequest) {
-        long total = this.studentDao.count(student);
-        return new PageImpl<>(this.studentDao.queryAllByLimit(student, pageRequest), pageRequest, total);
+    public Map<String,Object> queryByPage(int pageNow, int pageRow) {
+        if(pageNow <=0 || pageRow<=0){
+            throw new IllegalParamException("参数传递错误,页码和页行数必须>=1");
+        }
+        HashMap<String, Object> map = new HashMap<>();
+        long total = this.studentMapper.count();
+        int strIndex = (pageNow -1)*pageRow;
+        int row = pageRow;
+        try {
+            List<Student> students = this.studentMapper.queryAllStudentByLimit(strIndex, row);
+            if(students != null && students.size()>0){
+                map.put("total",total);
+                map.put("students",students);
+                return map;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -53,7 +70,7 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Student insert(Student student) {
-        this.studentDao.insert(student);
+        this.studentMapper.insert(student);
         return student;
     }
 
@@ -65,7 +82,7 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Student update(Student student) {
-        this.studentDao.update(student);
+        this.studentMapper.update(student);
         return this.queryById(student.getId());
     }
 
@@ -77,6 +94,35 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public boolean deleteById(Integer id) {
-        return this.studentDao.deleteById(id) > 0;
+        return this.studentMapper.deleteById(id) > 0;
+    }
+
+    /**
+     * 根据name分页查询
+     * @param pageNow 当前页码
+     * @param pageRow 当前页行数
+     * @param name
+     * @return
+     */
+    @Override
+    public Map<String, Object> queryByNamePage(int pageNow, int pageRow, String name) {
+        if(pageNow <=0 || pageRow<=0){
+            throw new IllegalParamException("参数传递错误,页码和页行数必须>=1");
+        }
+        HashMap<String, Object> map = new HashMap<>();
+        long count = this.studentMapper.findCountByStudentName(name);
+        int strIndex = (pageNow -1)*pageNow;
+        int row = pageRow;
+        try {
+            List<Student> students = this.studentMapper.queryByName(strIndex, row, name);
+            if(students != null && students.size()>0){
+                map.put("total",count);
+                map.put("students",students);
+                return map;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

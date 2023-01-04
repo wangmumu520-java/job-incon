@@ -4,10 +4,12 @@ import com.wly.entity.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.Map;
+
 /**
  * (Student)表服务接口
  *
- * @author makejava
+ * @author 王林园
  * @since 2022-12-26 23:03:32
  */
 public interface StudentService {
@@ -22,12 +24,11 @@ public interface StudentService {
 
     /**
      * 分页查询
-     *
-     * @param student 筛选条件
-     * @param pageRequest      分页对象
+     *@param pageNow 起始位置
+     *@param PageRow   每页记录数
      * @return 查询结果
      */
-    Page<Student> queryByPage(Student student, PageRequest pageRequest);
+    Map<String,Object> queryByPage(int pageNow, int PageRow);
 
     /**
      * 新增数据
@@ -53,4 +54,10 @@ public interface StudentService {
      */
     boolean deleteById(Integer id);
 
+    /**
+     * 条件分页查询
+     *
+     * @return 实例对象
+     */
+    Map<String,Object> queryByNamePage(int pageNow, int pageRow, String name);
 }
