@@ -1,5 +1,6 @@
 package com.wly.service.impl;
 
+import com.wly.exception.IllegalParamsException;
 import com.wly.mapper.JobMapper;
 import com.wly.entity.Job;
 import com.wly.service.JobService;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @since 2022-12-22 17:20:20
  */
 @Service("jobService")
+@SuppressWarnings("all")
 public class JobServiceImpl implements JobService {
     @Resource
     private JobMapper jobMapper;
@@ -43,6 +45,9 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     public List<Map<String,Object>> queryByPage(int pageNow, int pageRow) {
+        if(pageNow <=0 || pageRow<=0){
+            throw new IllegalParamsException("参数传递错误,页码和页行数必须>=1");
+        }
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         long total = this.jobMapper.count();
@@ -107,6 +112,9 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     public List<Map<String, Object>> queryByNamePage(int pageNow, int pageRow, String position) {
+        if(pageNow <=0 || pageRow<=0){
+            throw new IllegalParamsException("参数传递错误,页码和页行数必须>=1");
+        }
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         long total = this.jobMapper.findCountByPosition(position);
