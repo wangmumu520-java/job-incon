@@ -1,12 +1,10 @@
 package com.wly.service.impl;
 
 import com.wly.entity.Company;
+import com.wly.exception.IllegalException;
 import com.wly.mapper.CompanyMapper;
 import com.wly.service.CompanyService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -44,6 +42,9 @@ public class CompanyServiceImpl implements CompanyService {
      */
     @Override
     public Map<String,Object> queryByPage(int pageNow, int pageRow) {
+        if(pageNow <=0 || pageRow<=0){
+            throw new IllegalException("参数传递错误,页码和页行数必须>=1");
+        }
         HashMap<String, Object> map = new HashMap<>();
         long total = this.companyMapper.count();
         int strIndex = (pageNow -1)*pageRow;
@@ -105,6 +106,9 @@ public class CompanyServiceImpl implements CompanyService {
      */
     @Override
     public Map<String, Object> queryByNamePage(int pageNow, int pageRow, String name) {
+        if(pageNow <=0 || pageRow<=0){
+            throw new IllegalException("参数传递错误,页码和页行数必须>=1");
+        }
         HashMap<String, Object> map = new HashMap<>();
         long count = this.companyMapper.findCountByCompanyName(name);
         int strIndex = (pageNow -1)*pageNow;
