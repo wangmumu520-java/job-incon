@@ -9,4 +9,8 @@ public interface CaptchaCst {
      * 用户手机phone_key
      */
     String PHONE_KEY = "PHONE_";
+    /**
+     * 时间间隔key
+     */
+    String INTERVAL_TIME_KEY = "INTERVAL_TIME_";
 }
