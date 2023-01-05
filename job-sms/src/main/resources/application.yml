@@ -16,7 +16,6 @@ spring:
 sms:
   accesskeyId: LTAI5tPkfm6pXt2ggX1sM5Jm
   secret: AroPRMV9CM3wL4raVToqKTMgM2NzZr
-#  signName: 乐购商城
-  signName: job互联
+  signName: job互联系统
   templateCode: SMS_100840002
   regionId: cn-hangzhou
