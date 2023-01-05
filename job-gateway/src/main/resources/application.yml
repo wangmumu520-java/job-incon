@@ -13,34 +13,36 @@ spring:
         - id: sms_router
           uri: lb://JOB-SMS
           predicates:
-            - Path=/api/captchas/**
-          filters:
-            - StripPrefix=1
+            - Path=/**
+#          filters:
+#            - StripPrefix=1
         # 类别服务
         - id: categories_router
           uri: lb://JOB-CATEGORY
           predicates:
-            - Path=/api/categories/**
-          filters:
-            - StripPrefix=1
+            - Path=/categories/**
+#          filters:
+#            - StripPrefix=1
 
         # 学生服务
         - id: students_router
-          uri: lb://JOB-STUDENT  #注意:书写服务名不能是含有_
+          uri: lb://JOB-STUDENT  #书写服务名不能是含有_
           predicates:
             - Path=/api/token/**,/api/tokens/**,/api/student/**
-          filters:
-            - StripPrefix=1    #去掉前缀filter 去掉请求路由中1级前缀   /captchas
+#          filters:
+#            - StripPrefix=1
 
         # 企业服务
         - id: company_router
           uri: lb://JOB-COMPANY
           predicates:
             - Path=/api/company/**
-          filters:
-            - StripPrefix=1
+#          filters:
+#            - StripPrefix=1
 
-
+      discovery:
+        locator:
+          enabled: true # 动态获取路由
       globalcors:
         cors-configurations:
           '[/**]':

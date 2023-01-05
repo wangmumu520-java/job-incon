@@ -46,9 +46,9 @@ public class StudentApplicationTest {
 //        System.out.println("插入记录数"+res);
 //        System.out.println("更新记录数"+res);
 
-        Map<String, Object> map = this.studentService.queryByNamePage(1, 5,"张");
+        Map<String, Object> map = this.studentService.queryByPage(1, 5);
         long total = (long) map.get("total");
-        log.info("名字张的相关记录数：{}", total);
+        log.info(" 总记录数：{}", total);
         List<Student> students = (List<Student>) map.get("students");
         for (Student student : students) {
             log.info("学生对象{}的信息：{}",student.getId(),student);
