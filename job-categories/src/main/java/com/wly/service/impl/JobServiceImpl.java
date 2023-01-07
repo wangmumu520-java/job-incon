@@ -45,6 +45,7 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     public List<Map<String,Object>> queryByPage(int pageNow, int pageRow) {
+        //传参错误
         if(pageNow <=0 || pageRow<=0){
             throw new IllegalParamsException("参数传递错误,页码和页行数必须>=1");
         }
@@ -103,6 +104,7 @@ public class JobServiceImpl implements JobService {
         return this.jobMapper.deleteById(id) > 0;
     }
 
+
     /**
      * 根据职位名称分页查询
      * @param pageNow
@@ -112,6 +114,7 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     public List<Map<String, Object>> queryByNamePage(int pageNow, int pageRow, String position) {
+        //参数错误直接抛异常
         if(pageNow <=0 || pageRow<=0){
             throw new IllegalParamsException("参数传递错误,页码和页行数必须>=1");
         }

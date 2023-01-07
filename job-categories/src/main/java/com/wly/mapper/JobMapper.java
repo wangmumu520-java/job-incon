@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * (Job)表数据库访问层
  *
- * @author makejava
+ * @author wanglinyuan
  * @since 2022-12-22 17:20:20
  */
 @Mapper

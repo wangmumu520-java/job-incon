@@ -27,10 +27,10 @@ public interface JobService {
      * 分页查询
      *
      * @param pageNow 起始位置
-     * @param PageRow   每页记录数
+     * @param pageRow   每页记录数
      * @return 查询结果
      */
-    List<Map<String,Object>> queryByPage(int pageNow, int PageRow);
+    List<Map<String,Object>> queryByPage(int pageNow, int pageRow);
 
     /**
      * 新增数据
