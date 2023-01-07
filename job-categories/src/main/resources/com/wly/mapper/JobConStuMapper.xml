@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wly.mapper.JobConStuMapper">
+
+    <resultMap type="com.wly.po.JobStuPO" id="JobMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="sid" column="sid" jdbcType="INTEGER"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+        <result property="allNumber" column="all_number" jdbcType="INTEGER"/>
+        <result property="category" column="category" jdbcType="VARCHAR"/>
+        <result property="nowNumber" column="now_number" jdbcType="INTEGER"/>
+        <result property="salary" column="salary" jdbcType="INTEGER"/>
+        <result property="requirement" column="requirement" jdbcType="VARCHAR"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--jobConnectStudentMap-->
+    <resultMap id="jobConnectStudentMap" type="com.wly.po.JobStuPO" extends="JobMap">
+        <association property="student" javaType="com.wly.entity.Student">
+            <result property="id" column="sid"  jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="sex" column="sex" jdbcType="VARCHAR"/>
+            <result property="nowAddress" column="now_address" jdbcType="VARCHAR"/>
+            <result property="major" column="major" jdbcType="VARCHAR"/>
+            <result property="college" column="college" jdbcType="VARCHAR"/>
+            <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+            <result property="fansNumber" column="fans_number" jdbcType="INTEGER"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="hEducation" column="h_education" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="jobConnectStudentMap">
+        select
+          j.id, j.sid, j.position, j.all_number, j.category, j.now_number, j.salary, j.requirement, j.date,
+          s.id sid, s.name, s.age, s.sex, s.now_address, s.major, s.college, s.introduction, s.fans_number, s.phone, s.h_education
+        from job_stucon j
+            left join student s on j.sid = s.id
+        where j.id = #{id}
+    </select>
+
+    <!--根据职位名称查询数据-->
+    <select id="queryByName" resultMap="jobConnectStudentMap">
+        select
+          j.id, j.sid, j.position, j.all_number, j.category, j.now_number, j.salary, j.requirement, j.date,
+          s.id sid, s.name, s.age, s.sex, s.now_address, s.major, s.college, s.introduction, s.fans_number, s.phone, s.h_education
+        from job_stucon j
+            left join student s on j.sid = s.id
+        where position like concat('%',#{position},'%') limit #{strIndex}, #{row}
+    </select>
+
+    <!--查询所有数据-->
+    <select id="queryAllByLimit" resultMap="jobConnectStudentMap">
+        select
+          j.id, j.sid, j.position, j.all_number, j.category, j.now_number, j.salary, j.requirement, j.date,
+          s.id sid, s.name, s.age, s.sex, s.now_address, s.major, s.college, s.introduction, s.fans_number, s.phone, s.h_education
+       from job_stucon j
+            left join student s on j.sid = s.id
+        limit #{strIndex}, #{row}
+    </select>
+
+    <!--根据职位名称统计行数-->
+    <select id="findCountByPosition" resultType="java.lang.Long">
+        select count(id)
+        from job_stucon
+        where position like concat('%',#{position},'%')
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(id)
+        from job_stucon
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into job_stucon(sid, position, all_number, category, now_number, salary, requirement, date)
+        values (#{sid}, #{position}, #{allNumber}, #{category}, #{nowNumber}, #{salary}, #{requirement}, #{date})
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update job_stucon
+        <set>
+            <if test="sid != null">
+                sid = #{sid},
+            </if>
+            <if test="position != null and position != ''">
+                position = #{position},
+            </if>
+            <if test="allNumber != null">
+                all_number = #{allNumber},
+            </if>
+            <if test="category != null and category != ''">
+                category = #{category},
+            </if>
+            <if test="nowNumber != null">
+                now_number = #{nowNumber},
+            </if>
+            <if test="salary != null">
+                salary = #{salary},
+            </if>
+            <if test="requirement != null and requirement != ''">
+                requirement = #{requirement},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from job_stucon where id = #{id}
+    </delete>
+</mapper>
